@@ -55,6 +55,9 @@ Then /^I should see a canvas with (\d+) columns and (\d+) rows$/ do |cols, rows|
   canvas.to_s.length.should == number_of_expected_pixels
 end
 
-Then /^all pixels on that canvas should be "([^"]*)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^all pixels on that canvas should be "([^"]*)"$/ do |pixel|
+  canvas = output.messages.each.select {|x| x =~ /^[A-Z]+$/ }
+  canvas.each do |row|
+    /^#{pixel}+$/.match row
+  end
 end
