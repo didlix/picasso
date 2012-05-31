@@ -29,7 +29,9 @@ module Picasso
     end
     
     def render_canvas
-      @output.puts @canvas.render
+      @canvas.get_canvas.each do |row|
+        @output.puts row.to_s
+      end
     end
     
   end
@@ -49,13 +51,8 @@ module Picasso
       @data[x][y] = value
     end
     
-    def render
-      @data.each do |row|
-        row.each do |el|
-          print el
-        end
-        puts
-      end
+    def get_canvas
+      @data
     end
     
   end
