@@ -15,7 +15,7 @@ Feature: ASCII Artist creates a Canvas in Picasso
     When I try to create a canvas with the command "I <columns> <rows>"
     And I enter the command "S"
     Then I should see a canvas with <columns> columns and <rows> rows
-    And all pixels on that canvas should be "O"
+    And all pixels on that canvas should be the colour "O"
 
     Scenarios: Valid canvas sizes
       | columns | rows |
