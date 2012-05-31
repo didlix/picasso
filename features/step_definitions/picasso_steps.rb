@@ -36,8 +36,11 @@ When /^I enter the command "([^"]*)"$/ do |command|
 end
 
 Then /^I should see a canvas with (\d+) columns and (\d+) rows$/ do |cols, rows|
-  puts output.messages
-  canvas = output.messages.select {|x| x =~ /[A-Z]*/ }
+  canvas = output.messages
+  canvas.each do |message|
+    puts message
+  end
+  # canvas = output.messages.select {|x| x =~ /[A-Z]*/ }
   number_of_expected_pixels = cols.to_i * rows.to_i
 end
 

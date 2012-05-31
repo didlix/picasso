@@ -13,10 +13,10 @@ module Picasso
       command_parts = command.split
       command_parts[0].each do |command|
 
-        if command == "C" and command_parts.count == 3
-          cols = command_parts[1]
+        if command == "I" and command_parts.count == 3
           rows = command_parts[2]
-          self.create_canvas(cols.to_i, rows.to_i)
+          cols = command_parts[1]
+          self.create_canvas(rows.to_i, cols.to_i)
         elsif command == "S"
           self.render_canvas
         end
@@ -24,8 +24,8 @@ module Picasso
       end
     end
     
-    def create_canvas(cols, rows)
-      @canvas = Canvas.new(cols, rows)
+    def create_canvas(rows, cols)
+      @canvas = Canvas.new(rows, cols)
     end
     
     def render_canvas
@@ -36,9 +36,9 @@ module Picasso
   
   # Based on a 2D Array
   class Canvas
-    def initialize(cols, rows)
+    def initialize(rows, cols)
       # create 2D array setting each element to 'O'
-      @data = Array.new(cols) { Array.new(rows) { 'O' } }
+      @data = Array.new(rows) { Array.new(cols) { 'O' } }
     end
 
     def [](x, y)
@@ -50,10 +50,14 @@ module Picasso
     end
     
     def render
-      @data[1][1]='B'
-      @data.transpose
-      foo = @data.each
+      @data.each do |row|
+        row.each do |el|
+          print el
+        end
+        puts
+      end
     end
+    
   end
   
 end
