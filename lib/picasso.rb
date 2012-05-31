@@ -25,13 +25,22 @@ module Picasso
     end
     
     def create_canvas(rows, cols)
-      @canvas = Canvas.new(rows, cols)
+      if self.is_valid_size?(rows) && self.is_valid_size?(cols)
+        @canvas = Canvas.new(rows, cols)
+      else
+        @output.puts "Your canvas size is out of bounds"
+      end
     end
     
     def render_canvas
       @canvas.get_canvas.each do |row|
         @output.puts row.to_s
       end
+    end
+    
+    # check if a supplied value is the right size
+    def is_valid_size?(length)
+      length <= 250 && length >= 1
     end
     
   end
