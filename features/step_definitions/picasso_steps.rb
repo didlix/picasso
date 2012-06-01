@@ -61,3 +61,19 @@ Then /^all pixels on that canvas should be the colour "([^"]*)"$/ do |pixel|
     /^#{pixel}+$/.match row
   end
 end
+
+Given /^I have a Canvas that has (\d+) columns and (\d+) rows$/ do |cols, rows|
+  @picasso.command("I #{cols} #{rows}")
+end
+
+When /^I colour a pixel with the command "([^"]*)"$/ do |command|
+  @picasso.command(command)
+
+  errors = output.messages.each.select {|x| x =~ /Error/ }
+  if errors.count > 0
+    exit
+  end
+end
+
+Then /^I should see a canvas with a pixel in location (\d+), (\d+) that is the colour "([^"]*)"$/ do |x, y, colour|
+end

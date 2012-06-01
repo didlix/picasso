@@ -20,7 +20,7 @@ module Picasso
         elsif command == "S"
           self.render_canvas
         else
-          @output.puts "The command you entered is not valid"
+          @output.puts "Error: The command you entered is not valid"
         end
 
       end
@@ -30,7 +30,7 @@ module Picasso
       if self.is_valid_size?(rows) && self.is_valid_size?(cols)
         @canvas = Canvas.new(rows, cols)
       else
-        @output.puts "Your canvas size is out of bounds"
+        @output.puts "Error: Your canvas size is out of bounds"
       end
     end
     

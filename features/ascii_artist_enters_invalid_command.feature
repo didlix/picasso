@@ -8,7 +8,7 @@ Feature: An ASCII Artist gets an error when they try to use invalid commands
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
     When I enter the command "<command>"
-    Then I should see "The command you entered is not valid"
+    Then I should see "Error: The command you entered is not valid"
     
     Scenarios: Invalid commands
       | command  |
