@@ -4,5 +4,6 @@ require 'picasso'
 picasso = Picasso::App.new(STDOUT)
 picasso.start
 
-# remove me later
-picasso.command("N 250 250")
+while true do
+  picasso.command(STDIN.gets)
+end
