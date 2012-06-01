@@ -11,22 +11,23 @@ module Picasso
     
     def command(command)
       command_parts = command.split
-      command = command_parts[0]
+      
+      case command_parts[0]
 
-      if command == "I" and command_parts.count == 3
+      when "I"  
         rows = command_parts[2]
         cols = command_parts[1]
         self.create_canvas(rows.to_i, cols.to_i)
 
-      elsif command == "S"
+      when "S"
         self.render_canvas
 
-      elsif command == "L"
+      when "L"
         y = command_parts[2].to_i
         x = command_parts[1].to_i
         colour = command_parts[3]
         @canvas[x-1,y-1] = colour
-
+        
       else
         @output.puts "Error: The command you entered is not valid"
       end
