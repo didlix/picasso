@@ -23,10 +23,10 @@ module Picasso
         self.render_canvas
 
       when "L"
-        y = command_parts[2].to_i
-        x = command_parts[1].to_i
+        x = command_parts[1].to_i-1
+        y = command_parts[2].to_i-1
         colour = command_parts[3]
-        @canvas[x-1,y-1] = colour
+        @canvas[y,x] = colour
         
       else
         @output.puts "Error: The command you entered is not valid"
@@ -62,12 +62,12 @@ module Picasso
       @data = Array.new(rows) { Array.new(cols) { 'O' } }
     end
 
-    def [](x, y)
-      @data[x][y]
+    def [](y, x)
+      @data[y][x]
     end
 
-    def []=(x, y, value)
-      @data[x][y] = value
+    def []=(y, x, value)
+      @data[y][x] = value
     end
     
     def get_canvas

@@ -15,10 +15,15 @@ Feature: ASCII Artist colours a pixel in Picasso
 
     Scenarios: Pixels of valid colours in range of the canvas
       | X  | Y  | C |
-      | 8  | 8  | A |
-      | 10 | 1  | B |
       | 1  | 10 | C |
       | 1  | 2  | D |
+      | 1  | 1  | G |
+      | 10 | 10 | F |
+      | 8  | 8  | A |
+      | 9  | 1  | B |
+      | 2  | 2  | E |
+
+
 
   # Scenario Outline: Attempt to colour a pixel out of range of the canvas
   #   Given Picasso is running

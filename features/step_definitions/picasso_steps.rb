@@ -76,4 +76,8 @@ When /^I colour a pixel with the command "([^"]*)"$/ do |command|
 end
 
 Then /^I should see a canvas with a pixel in location (\d+), (\d+) that is the colour "([^"]*)"$/ do |x, y, colour|
+
+  canvas = output.messages.select {|line| line =~ /^[A-Z]+$/ }
+  painted_pixel = canvas[y.to_i-1][x.to_i-1]
+  painted_pixel.should == colour  
 end
