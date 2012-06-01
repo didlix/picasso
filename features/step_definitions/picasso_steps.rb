@@ -50,9 +50,12 @@ Then /^I should see a canvas with (\d+) columns and (\d+) rows$/ do |cols, rows|
     row.length.should == cols.to_i
   end
   
+
   # and check total number of pixels is expected
   number_of_expected_pixels = cols.to_i * rows.to_i
-  canvas.to_s.length.should == number_of_expected_pixels
+  canvas.join('').length.should == number_of_expected_pixels
+
+  
 end
 
 Then /^all pixels on that canvas should be the colour "([^"]*)"$/ do |pixel|
