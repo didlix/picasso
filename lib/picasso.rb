@@ -36,9 +36,9 @@ module Picasso
         self.draw_horizontal_line(x1, x2, y, colour)
 
       when "V"
-        y1 = command_parts[1].to_i-1
-        y2 = command_parts[2].to_i-1        
-        x = command_parts[3].to_i-1
+        y1 = command_parts[2].to_i-1
+        y2 = command_parts[3].to_i-1        
+        x = command_parts[1].to_i-1
         colour = command_parts[4]        
         self.draw_vertical_line(y1, y2, x, colour)
         
