@@ -34,10 +34,21 @@ end
 
 When /^I try to create a canvas with the command "([^"]*)"$/ do |command|
   @picasso.command(command)
+
+  errors = output.messages.each.select {|x| x =~ /Error/ }
+  if errors.count > 0
+    exit
+  end
+
 end
 
 When /^I enter the command "([^"]*)"$/ do |command|
   @picasso.command(command)
+
+  errors = output.messages.each.select {|x| x =~ /Error/ }
+  if errors.count > 0
+    exit
+  end  
 end
 
 Then /^I should see a canvas with (\d+) columns and (\d+) rows$/ do |cols, rows|
@@ -58,7 +69,10 @@ end
 
 Then /^all pixels on that canvas should be the colour "([^"]*)"$/ do |pixel|
   canvas = output.messages.each.select {|x| x =~ /^[A-Z]+$/ }
+puts output.messages
+puts pixel
   canvas.each do |row|
+    puts row
     /^#{pixel}+$/.match row
   end
 end

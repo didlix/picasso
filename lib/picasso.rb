@@ -26,7 +26,7 @@ module Picasso
         x = command_parts[1].to_i-1
         y = command_parts[2].to_i-1
         colour = command_parts[3]
-        @canvas[y,x] = colour
+        self.fill_pixel(y, x, colour)
       
       when "H"
         x1 = command_parts[1].to_i-1
@@ -41,6 +41,12 @@ module Picasso
         x = command_parts[3].to_i-1
         colour = command_parts[4]        
         self.draw_vertical_line(y1, y2, x, colour)
+        
+      when "F"
+        x = command_parts[1].to_i-1
+        y = command_parts[2].to_i-1
+        colour = command_parts[3]
+        self.bucket_fill(y, x, colour)
         
       else
         @output.puts "Error: The command you entered is not valid"
@@ -72,16 +78,80 @@ module Picasso
       x2 = x2
       y = y
       for x in x1..x2
-        @canvas[y,x] = colour
+        self.fill_pixel(y, x, colour)
       end
     end
 
     def draw_vertical_line(y1, y2, x, colour)
       for y in y1..y2
-        @canvas[y,x] = colour
+        self.fill_pixel(y, x, colour)
       end
     end
     
+    def fill_pixel(y, x, colour)
+      @canvas[y,x] = colour
+    end
+    
+    def bucket_fill(y, x, replacement_colour)
+    
+      @target_colour = @canvas[y,x]
+
+      # Add first co-ordinate to the queue
+      @queue = Array.new(1) { "#{y},#{x}" }
+      @buffer = Array.new
+            
+      while @queue.count > 0 do
+        yx = @queue.last
+        split_yx = yx.split ','
+        y = split_yx[0].to_i
+        x = split_yx[1].to_i
+        
+        # remove element we are processing from the queue
+        @queue.delete(yx)
+        @output.puts yx
+        
+        # co-ordinates are not in buffer and are within the canvas range
+        if @buffer.include?(yx) == false && y <= @canvas.rows && x <= @canvas.cols 
+          
+          # if target pixel is the target colour
+          if @canvas[y,x] == @target_colour      
+            self.fill_pixel(y, x, replacement_colour)
+      
+            # add this place to our buffer so we don't go there again
+            @buffer << yx
+            
+            possible_neighbours = Array.new
+            
+            if x-1 > 0
+              possible_neighbours << "#{y},#{x-1}"
+            end
+
+            if x+1 <= @canvas.cols
+              possible_neighbours << "#{y},#{x+1}"
+            end
+
+            if y-1 > 0
+              possible_neighbours << "#{y-1},#{x}"
+            end
+
+            if y+1 <= @canvas.rows
+              possible_neighbours << "#{y+1},#{x}"
+            end
+            
+            # neighbours that may or may not be in the buffer
+            possible_neighbours.each do |possible_neighbour|   
+
+              # add places we have never been before to the queue
+              if @buffer.include?(possible_neighbour) == false
+                @queue << possible_neighbour
+              end
+            end
+          end
+        else
+          @buffer << yx
+        end
+      end 
+    end
   end
   
   # Based on a 2D Array
@@ -89,6 +159,20 @@ module Picasso
     def initialize(rows, cols)
       # create 2D array setting each element to 'O'
       @data = Array.new(rows) { Array.new(cols) { 'O' } }
+      
+      # Set number of rows and cols (remembering array starts at 0)
+      @rows = rows-1
+      @cols = cols-1
+    end
+
+    # number of cols
+    def cols
+      @cols
+    end
+    
+    # number or rows
+    def rows
+      @rows
     end
 
     def [](y, x)
