@@ -108,7 +108,6 @@ module Picasso
         
         # remove element we are processing from the queue
         @queue.delete(yx)
-        @output.puts yx
         
         # co-ordinates are not in buffer and are within the canvas range
         if @buffer.include?(yx) == false && y <= @canvas.rows && x <= @canvas.cols 
@@ -122,7 +121,7 @@ module Picasso
             
             possible_neighbours = Array.new
             
-            if x-1 > 0
+            if x-1 >= 0
               possible_neighbours << "#{y},#{x-1}"
             end
 
@@ -130,7 +129,7 @@ module Picasso
               possible_neighbours << "#{y},#{x+1}"
             end
 
-            if y-1 > 0
+            if y-1 >= 0
               possible_neighbours << "#{y-1},#{x}"
             end
 
