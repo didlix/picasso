@@ -27,6 +27,20 @@ module Picasso
         y = command_parts[2].to_i-1
         colour = command_parts[3]
         @canvas[y,x] = colour
+      
+      when "H"
+        x1 = command_parts[1].to_i-1
+        x2 = command_parts[2].to_i-1        
+        y = command_parts[3].to_i-1
+        colour = command_parts[4]        
+        self.draw_horizontal_line(x1, x2, y, colour)
+
+      when "V"
+        y1 = command_parts[1].to_i-1
+        y2 = command_parts[2].to_i-1        
+        x = command_parts[3].to_i-1
+        colour = command_parts[4]        
+        self.draw_vertical_line(y1, y2, x, colour)
         
       else
         @output.puts "Error: The command you entered is not valid"
@@ -51,6 +65,21 @@ module Picasso
     # check if a supplied value is the right size
     def is_valid_size?(length)
       length <= 250 && length >= 1
+    end
+    
+    def draw_horizontal_line(x1, x2, y, colour)
+      x1 = x1
+      x2 = x2
+      y = y
+      for x in x1..x2
+        @canvas[y,x] = colour
+      end
+    end
+
+    def draw_vertical_line(y1, y2, x, colour)
+      for y in y1..y2
+        @canvas[y,x] = colour
+      end
     end
     
   end
