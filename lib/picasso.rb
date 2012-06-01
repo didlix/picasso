@@ -11,19 +11,26 @@ module Picasso
     
     def command(command)
       command_parts = command.split
-      command_parts[0].each do |command|
+      command = command_parts[0]
 
-        if command == "I" and command_parts.count == 3
-          rows = command_parts[2]
-          cols = command_parts[1]
-          self.create_canvas(rows.to_i, cols.to_i)
-        elsif command == "S"
-          self.render_canvas
-        else
-          @output.puts "Error: The command you entered is not valid"
-        end
+      if command == "I" and command_parts.count == 3
+        rows = command_parts[2]
+        cols = command_parts[1]
+        self.create_canvas(rows.to_i, cols.to_i)
 
+      elsif command == "S"
+        self.render_canvas
+
+      elsif command == "L"
+        y = command_parts[2].to_i
+        x = command_parts[1].to_i
+        colour = command_parts[3]
+        @canvas[x-1,y-1] = colour
+
+      else
+        @output.puts "Error: The command you entered is not valid"
       end
+
     end
     
     def create_canvas(rows, cols)
@@ -36,7 +43,7 @@ module Picasso
     
     def render_canvas
       @canvas.get_canvas.each do |row|
-        @output.puts row.to_s
+        @output.puts row.join('')
       end
     end
     
