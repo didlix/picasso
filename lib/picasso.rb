@@ -19,6 +19,8 @@ module Picasso
           self.create_canvas(rows.to_i, cols.to_i)
         elsif command == "S"
           self.render_canvas
+        else
+          @output.puts "The command you entered is not valid"
         end
 
       end
