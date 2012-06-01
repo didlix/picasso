@@ -80,4 +80,5 @@ Then /^I should see a canvas with a pixel in location (\d+), (\d+) that is the c
   canvas = output.messages.select {|line| line =~ /^[A-Z]+$/ }
   painted_pixel = canvas[y.to_i-1][x.to_i-1]
   painted_pixel.should == colour  
+  
 end
