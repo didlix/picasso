@@ -22,7 +22,7 @@ Feature: ASCII Artist bucket fills a region with a colour
     When I enter the command "V 5 1 10 C"
     And I enter the command "F 1 1 R"
     And I enter the command "S"
-    Then all pixels on that canvas should be the colour "R"
+    Then the pixels "" should be the colour "R"
     
   Scenario: Bucket fill a region where the canvas is split into quarters by two lines
     Given Picasso is running
@@ -31,7 +31,7 @@ Feature: ASCII Artist bucket fills a region with a colour
     When I enter the command "H 1 10 5 X"      
     And I enter the command "F 1 1 R"
     And I enter the command "S"
-    Then all pixels on that canvas should be the colour "R"    
+    Then the pixels "" should be the colour "R"
     
   Scenario: Bucket fill a region where the canvas is split into quarters by two lines and there is a pixel in the region we are filling
     Given Picasso is running
@@ -41,7 +41,7 @@ Feature: ASCII Artist bucket fills a region with a colour
     And I enter the command "L 2 2 Z"    
     And I enter the command "F 1 1 R"
     And I enter the command "S"
-    Then all pixels on that canvas should be the colour "R"
+    Then the pixels "" should be the colour "R"
 
   Scenario: Bucket fill a region where the canvas is split into quarters by two lines and there is a diagonal line
     Given Picasso is running
@@ -54,7 +54,7 @@ Feature: ASCII Artist bucket fills a region with a colour
     And I enter the command "L 4 4 Z"        
     And I enter the command "F 2 1 R"
     And I enter the command "S"
-    Then all pixels on that canvas should be the colour "R"
+    Then the pixels "" should be the colour "R"
     
   Scenario: Draw a cross then bucket fill the cross
     Given Picasso is running
@@ -63,7 +63,7 @@ Feature: ASCII Artist bucket fills a region with a colour
     And I enter the command "H 2 9 5 X"        
     And I enter the command "F 5 5 R"
     And I enter the command "S"
-    Then all pixels on that canvas should be the colour "R" 
+    Then the pixels "" should be the colour "R"
 
   Scenario Outline: Try to fill region that is out of bounds of the canvas
     Given Picasso is running
