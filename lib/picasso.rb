@@ -19,9 +19,9 @@ module Picasso
         cols = command_parts[1].to_i
 
         if rows >= 1 && rows <= 250 && cols >= 1 && cols <= 250
-          self.create_canvas(rows.to_i, cols.to_i)
+          self.create_canvas(rows, cols)
         else
-          @output.puts "Error: Your canvas size is out of bounds"
+          @output.puts "Error: Your canvas sizes must be between 1 and 250"
         end
 
       when "S"
