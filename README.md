@@ -1,16 +1,25 @@
 Picasso
 =======
 
-As is usual when I do a code test, here is a list of everything I think I did wrong:
+As is usual when I do a code test, here is a list of everything I thought of, or think that I did wrong, or didn't like:
 
 - Used bad English in the cucumber tests
 - Wasted time on cucumber (for personal interest) when I should have saved time writing RSpec tests
 - Didn't end up with enough DRY (Don't repeat yourself)
-- Lots and lots more tests could be written, and this also highlights some user experience issues:
-  - What happens if you create a canvas while one exists? Error, or does it just make the new canvas?
+- I'm not doing any kind of sensible approach to error handling
+- I don't like how I am passing command parts
+- Lots and lots more tests could be written
+- User experience issues:
+  - What happens if you create a canvas while one exists?
+  - When testing the app with a user they wanted the canvas to show after each command
+  - User testing also highlighted that a lack of feedback after a correct command made them wonder if it had worked
   
 
-Oh and to run on a Mac with Ruby 1.9.2 (the only platform I tested it on, yes I know "it works on my machine" - "Well let's deploy your machine then") simply run the following command:
+Tested on Lion and Mountain Lion with Ruby 1.9.2
+
+If you want to run tests make sure you "bundle install", then type "cucumber"
+
+Run the app by going into the directory and entering the command:
 
 bin/picasso
 
