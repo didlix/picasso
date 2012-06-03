@@ -94,7 +94,11 @@ module Picasso
     end
     
     def fill_pixel(y, x, colour)
-      @canvas[y,x] = colour
+      if y <= @canvas.rows && y >= 0 && x <= @canvas.cols && x >= 0
+        @canvas[y,x] = colour
+      else
+        @output.puts "Error: The pixel you tried to colour is out of range of the canvas"
+      end
     end
     
     def bucket_fill(y, x, replacement_colour)
