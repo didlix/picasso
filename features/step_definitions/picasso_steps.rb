@@ -57,10 +57,8 @@ end
 
 Then /^all pixels on that canvas should be the colour "([^"]*)"$/ do |pixel|
   canvas = output.messages.each.select {|x| x =~ /^[A-Z]+$/ }
-puts output.messages
-puts pixel
+
   canvas.each do |row|
-    puts row
     /^#{pixel}+$/.match row
   end
 end
