@@ -26,7 +26,7 @@ Feature: ASCII Artist creates a Canvas in Picasso
     
   Scenario Outline: Create canvas with either too few or too many rows/columns
     Given Picasso is running
-    When I try to create a canvas with the command "I <columns> <rows>"
+    When I enter the command "I <columns> <rows>"
     Then I should see "Error: Your canvas size is out of bounds"
   
     Scenarios: Too many columns
