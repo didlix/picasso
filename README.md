@@ -9,6 +9,7 @@ As is usual when I do a code test, here is a list of everything I thought of, or
 - I'm not doing any kind of sensible approach to error handling
 - I don't like how I am passing command parts
 - Lots and lots more tests could be written
+- I want a better way of determining if something is going to go out of bounds of the canvas, this would be made easy if I was handling errors properly and in the correct places 
 - User experience issues:
   - What happens if you create a canvas while one exists?
   - When testing the app with a user they wanted the canvas to show after each command
