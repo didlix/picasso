@@ -44,7 +44,7 @@ Feature: ASCII Artist colours a pixel in Picasso
   Scenario Outline: Attempt to draw a pixel with an invalid colour
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I colour a pixel with the command "L <X> <Y> <C>"
+    When I enter the command "L <X> <Y> <C>"
     Then I should see "Error: That is not a valid colour, valid colours are A-Z"
   
       Scenarios: Invalid colours

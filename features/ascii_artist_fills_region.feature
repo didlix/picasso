@@ -19,7 +19,7 @@ Feature: ASCII Artist bucket fills a region with a colour
   Scenario: Bucket fill a region where the canvas is split by a line
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I draw a line with the command "V 5 1 10 C"
+    When I enter the command "V 5 1 10 C"
     And I enter the command "F 1 1 R"
     And I enter the command "S"
     Then all pixels on that canvas should be the colour "R"
@@ -27,8 +27,8 @@ Feature: ASCII Artist bucket fills a region with a colour
   Scenario: Bucket fill a region where the canvas is split into quarters by two lines
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I draw a line with the command "V 5 1 10 C"
-    When I draw a line with the command "H 1 10 5 X"      
+    When I enter the command "V 5 1 10 C"
+    When I enter the command "H 1 10 5 X"      
     And I enter the command "F 1 1 R"
     And I enter the command "S"
     Then all pixels on that canvas should be the colour "R"    
@@ -36,9 +36,9 @@ Feature: ASCII Artist bucket fills a region with a colour
   Scenario: Bucket fill a region where the canvas is split into quarters by two lines and there is a pixel in the region we are filling
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I draw a line with the command "V 5 1 10 C"
-    And I draw a line with the command "H 1 10 5 X"
-    And I colour a pixel with the command "L 2 2 Z"    
+    When I enter the command "V 5 1 10 C"
+    And I enter the command "H 1 10 5 X"
+    And I enter the command "L 2 2 Z"    
     And I enter the command "F 1 1 R"
     And I enter the command "S"
     Then all pixels on that canvas should be the colour "R"
@@ -46,12 +46,12 @@ Feature: ASCII Artist bucket fills a region with a colour
   Scenario: Bucket fill a region where the canvas is split into quarters by two lines and there is a diagonal line
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I draw a line with the command "V 5 1 10 C"
-    And I draw a line with the command "H 1 10 5 X"
-    And I colour a pixel with the command "L 1 1 Z"
-    And I colour a pixel with the command "L 2 2 Z"    
-    And I colour a pixel with the command "L 3 3 Z"
-    And I colour a pixel with the command "L 4 4 Z"        
+    When I enter the command "V 5 1 10 C"
+    And I enter the command "H 1 10 5 X"
+    And I enter the command "L 1 1 Z"
+    And I enter the command "L 2 2 Z"    
+    And I enter the command "L 3 3 Z"
+    And I enter the command "L 4 4 Z"        
     And I enter the command "F 2 1 R"
     And I enter the command "S"
     Then all pixels on that canvas should be the colour "R"
@@ -59,8 +59,8 @@ Feature: ASCII Artist bucket fills a region with a colour
   Scenario: Draw a cross then bucket fill the cross
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I draw a line with the command "V 5 2 9 X"
-    And I draw a line with the command "H 2 9 5 X"        
+    When I enter the command "V 5 2 9 X"
+    And I enter the command "H 2 9 5 X"        
     And I enter the command "F 5 5 R"
     And I enter the command "S"
     Then all pixels on that canvas should be the colour "R" 

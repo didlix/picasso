@@ -29,7 +29,7 @@ Commands:
   Scenario Outline: Draw Vertical Lines
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I draw a line with the command "V <X> <Y1> <Y2> <C>"
+    When I enter the command "V <X> <Y1> <Y2> <C>"
     And I enter the command "S"
     Then I should see a canvas with a line between <Y1> and <Y2> in column <X> that is the colour "<C>"
 
