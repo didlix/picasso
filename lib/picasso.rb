@@ -190,7 +190,6 @@ module Picasso
   
   # Based on a 2D Array
   class Canvas
-    def initialize(rows, cols)
     def initialize(rows, cols, output)
       # create 2D array setting each element to 'O'
       @data = Array.new(rows) { Array.new(cols) { 'O' } }
@@ -198,6 +197,8 @@ module Picasso
       # Set number of rows and cols (remembering array starts at 0)
       @rows = rows-1
       @cols = cols-1
+
+      @output = output
     end
 
     # number of cols
