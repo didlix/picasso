@@ -64,3 +64,21 @@ Feature: ASCII Artist bucket fills a region with a colour
     And I enter the command "F 5 5 R"
     And I enter the command "S"
     Then all pixels on that canvas should be the colour "R" 
+
+  Scenario Outline: Try to fill region that is out of bounds of the canvas
+    Given Picasso is running
+    And I have a Canvas that has 10 columns and 10 rows
+    And I enter the command "F <X> <Y> R"
+    Then I should see "Error: The pixel you tried to fill is out of bounds of the canvas"
+
+    Scenarios:
+    | X   | Y  |
+    | -1  | 1  |
+    | 1   | -1 |
+    | -1  | -1 |    
+    | 0   | 1  |
+    | 1   | 0  |
+    | 0   | 0  |
+    | 11  | 1  |
+    | 1   | 11 |
+    | 11  | 11 |
