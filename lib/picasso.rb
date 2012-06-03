@@ -31,27 +31,37 @@ module Picasso
         x = command_parts[1].to_i-1
         y = command_parts[2].to_i-1
         colour = command_parts[3]
-        self.fill_pixel(y, x, colour)
+        if self.is_valid_colour?(colour)
+          self.fill_pixel(y, x, colour)
+        end
       
       when "H"
         x1 = command_parts[1].to_i-1
         x2 = command_parts[2].to_i-1        
         y = command_parts[3].to_i-1
-        colour = command_parts[4]        
-        self.draw_horizontal_line(x1, x2, y, colour)
+        colour = command_parts[4]
+        
+        if self.is_valid_colour?(colour)
+          self.draw_horizontal_line(x1, x2, y, colour)
+        end
 
       when "V"
         y1 = command_parts[2].to_i-1
         y2 = command_parts[3].to_i-1        
         x = command_parts[1].to_i-1
         colour = command_parts[4]        
-        self.draw_vertical_line(y1, y2, x, colour)
+        
+        if self.is_valid_colour?(colour)
+          self.draw_vertical_line(y1, y2, x, colour)
+        end
         
       when "F"
         x = command_parts[1].to_i-1
         y = command_parts[2].to_i-1
         colour = command_parts[3]
-        self.bucket_fill(y, x, colour)
+        if self.is_valid_colour?(colour)
+          self.bucket_fill(y, x, colour)
+        end
         
       else
         @output.puts "Error: The command you entered is not valid"
@@ -84,6 +94,16 @@ module Picasso
       y = y
       for x in x1..x2
         self.fill_pixel(y, x, colour)
+      end
+    end
+
+    # Check if a colour is valid, if it is valid, return the colour otherwise puts an error and return false
+    def is_valid_colour?(colour)
+      if colour.length == 1 && colour.match(/[A-Z]+/)
+        colour
+      else
+        @output.puts "Error: That is not a valid colour, valid colours are A-Z"
+        false
       end
     end
 
