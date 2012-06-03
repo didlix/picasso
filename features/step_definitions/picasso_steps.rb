@@ -32,11 +32,6 @@ end
 
 When /^I enter the command "([^"]*)"$/ do |command|
   @picasso.command(command)
-
-  errors = output.messages.each.select {|x| x =~ /Error/ }
-  if errors.count > 0
-    exit
-  end  
 end
 
 Then /^I should see a canvas with (\d+) columns and (\d+) rows$/ do |cols, rows|

@@ -14,10 +14,15 @@ module Picasso
       
       case command_parts[0]
 
-      when "I"  
-        rows = command_parts[2]
-        cols = command_parts[1]
-        self.create_canvas(rows.to_i, cols.to_i)
+      when "I"
+        rows = command_parts[2].to_i
+        cols = command_parts[1].to_i
+
+        if rows >= 1 && rows <= 250 && cols >= 1 && cols <= 250
+          self.create_canvas(rows.to_i, cols.to_i)
+        else
+          @output.puts "Error: Your canvas size is out of bounds"
+        end
 
       when "S"
         self.render_canvas
@@ -121,6 +126,7 @@ module Picasso
             
             possible_neighbours = Array.new
             
+            # Don't try to go out of bounds of the canvas
             if x-1 >= 0
               possible_neighbours << "#{y},#{x-1}"
             end
