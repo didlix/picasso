@@ -69,7 +69,7 @@ Feature: ASCII Artist bucket fills a region with a colour
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
     And I enter the command "F <X> <Y> R"
-    Then I should see "Error: The pixel you tried to fill is out of bounds of the canvas"
+    Then I should see "Error: The pixel you tried to colour is out of range of the canvas"
 
     Scenarios:
     | X   | Y  |
