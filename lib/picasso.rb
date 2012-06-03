@@ -72,6 +72,7 @@ module Picasso
     def create_canvas(rows, cols)
       if self.is_valid_size?(rows) && self.is_valid_size?(cols)
         @canvas = Canvas.new(rows, cols)
+        @canvas = Canvas.new(rows, cols, @output)
       else
         @output.puts "Error: Your canvas size is out of bounds"
       end
