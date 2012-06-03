@@ -25,8 +25,6 @@ Then /^I should see "([^"]*)"$/ do |message|
   output.messages.should include(message)
 end
 
-# ascii artist creates canvas
-
 Given /^Picasso is running$/ do
   @picasso = Picasso::App.new(output)
   @picasso.start
