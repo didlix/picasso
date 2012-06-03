@@ -9,7 +9,7 @@ Feature: ASCII Artist colours a pixel in Picasso
   Scenario Outline: Colour pixels
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I colour a pixel with the command "L <X> <Y> <C>"
+    When I enter the command "L <X> <Y> <C>"
     And I enter the command "S"
     Then I should see a canvas with a pixel in location <X>, <Y> that is the colour "<C>"
 

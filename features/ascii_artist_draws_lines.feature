@@ -15,7 +15,7 @@ Commands:
   Scenario Outline: Draw Horizontal Lines
     Given Picasso is running
     And I have a Canvas that has 10 columns and 10 rows
-    When I draw a line with the command "H <X1> <X2> <Y> <C>"
+    When I enter the command "H <X1> <X2> <Y> <C>"
     And I enter the command "S"
     Then I should see a canvas with a line between <X1> and <X2> on row <Y> that is the colour "<C>"
 

@@ -32,16 +32,6 @@ Given /^Picasso is running$/ do
   @picasso.start
 end
 
-When /^I try to create a canvas with the command "([^"]*)"$/ do |command|
-  @picasso.command(command)
-
-  errors = output.messages.each.select {|x| x =~ /Error/ }
-  if errors.count > 0
-    exit
-  end
-
-end
-
 When /^I enter the command "([^"]*)"$/ do |command|
   @picasso.command(command)
 

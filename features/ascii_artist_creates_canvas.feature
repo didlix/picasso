@@ -12,7 +12,7 @@ Feature: ASCII Artist creates a Canvas in Picasso
 
   Scenario Outline: Create Canvas Between 250
     Given Picasso is running
-    When I try to create a canvas with the command "I <columns> <rows>"
+    When I enter the command "I <columns> <rows>"
     And I enter the command "S"
     Then I should see a canvas with <columns> columns and <rows> rows
     And all pixels on that canvas should be the colour "O"
