@@ -123,62 +123,67 @@ module Picasso
     
     def bucket_fill(y, x, replacement_colour)
     
-      @target_colour = @canvas[y,x]
+      if @canvas.in_bounds?(y, x)
 
-      # Add first co-ordinate to the queue
-      @queue = Array.new(1) { "#{y},#{x}" }
-      @buffer = Array.new
-            
-      while @queue.count > 0 do
-        yx = @queue.last
-        split_yx = yx.split ','
-        y = split_yx[0].to_i
-        x = split_yx[1].to_i
-        
-        # remove element we are processing from the queue
-        @queue.delete(yx)
-        
-        # co-ordinates are not in buffer and are within the canvas range
-        if @buffer.include?(yx) == false && y <= @canvas.rows && x <= @canvas.cols 
+        @target_colour = @canvas[y,x]
+
+        # Add first co-ordinate to the queue
+        @queue = Array.new(1) { "#{y},#{x}" }
+        @buffer = Array.new
+              
+        while @queue.count > 0 do
+          yx = @queue.last
+          split_yx = yx.split ','
+          y = split_yx[0].to_i
+          x = split_yx[1].to_i
           
-          # if target pixel is the target colour
-          if @canvas[y,x] == @target_colour      
-            self.fill_pixel(y, x, replacement_colour)
-      
-            # add this place to our buffer so we don't go there again
-            @buffer << yx
+          # remove element we are processing from the queue
+          @queue.delete(yx)
+          
+          # co-ordinates are not in buffer and are within the canvas range
+          if @buffer.include?(yx) == false && y <= @canvas.rows && x <= @canvas.cols 
             
-            possible_neighbours = Array.new
-            
-            # Don't try to go out of bounds of the canvas
-            if x-1 >= 0
-              possible_neighbours << "#{y},#{x-1}"
-            end
+            # if target pixel is the target colour
+            if @canvas[y,x] == @target_colour      
+              self.fill_pixel(y, x, replacement_colour)
+        
+              # add this place to our buffer so we don't go there again
+              @buffer << yx
+              
+              possible_neighbours = Array.new
+              
+              # Don't try to go out of bounds of the canvas
+              if x-1 >= 0
+                possible_neighbours << "#{y},#{x-1}"
+              end
 
-            if x+1 <= @canvas.cols
-              possible_neighbours << "#{y},#{x+1}"
-            end
+              if x+1 <= @canvas.cols
+                possible_neighbours << "#{y},#{x+1}"
+              end
 
-            if y-1 >= 0
-              possible_neighbours << "#{y-1},#{x}"
-            end
+              if y-1 >= 0
+                possible_neighbours << "#{y-1},#{x}"
+              end
 
-            if y+1 <= @canvas.rows
-              possible_neighbours << "#{y+1},#{x}"
-            end
-            
-            # neighbours that may or may not be in the buffer
-            possible_neighbours.each do |possible_neighbour|   
+              if y+1 <= @canvas.rows
+                possible_neighbours << "#{y+1},#{x}"
+              end
+              
+              # neighbours that may or may not be in the buffer
+              possible_neighbours.each do |possible_neighbour|   
 
-              # add places we have never been before to the queue
-              if @buffer.include?(possible_neighbour) == false
-                @queue << possible_neighbour
+                # add places we have never been before to the queue
+                if @buffer.include?(possible_neighbour) == false
+                  @queue << possible_neighbour
+                end
               end
             end
+          else
+            @buffer << yx
           end
-        else
-          @buffer << yx
         end
+      else
+        @output.puts "Error: The pixel you tried to fill is out of bounds of the canvas"
       end 
     end
   end
@@ -214,6 +219,14 @@ module Picasso
     
     def get_canvas
       @data
+    end
+
+    def in_bounds?(y, x)
+      if y >= 0 && y <= @rows && x >= 0 && x <= @cols
+        true
+      else
+        false
+      end
     end
     
   end
