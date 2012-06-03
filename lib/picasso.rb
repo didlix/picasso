@@ -31,7 +31,7 @@ module Picasso
         x = command_parts[1].to_i-1
         y = command_parts[2].to_i-1
         colour = command_parts[3]
-        if self.is_valid_colour?(colour)
+        if self.is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
           self.fill_pixel(y, x, colour)
         end
       
@@ -59,7 +59,7 @@ module Picasso
         x = command_parts[1].to_i-1
         y = command_parts[2].to_i-1
         colour = command_parts[3]
-        if self.is_valid_colour?(colour)
+        if self.is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
           self.bucket_fill(y, x, colour)
         end
         
@@ -71,7 +71,6 @@ module Picasso
     
     def create_canvas(rows, cols)
       if self.is_valid_size?(rows) && self.is_valid_size?(cols)
-        @canvas = Canvas.new(rows, cols)
         @canvas = Canvas.new(rows, cols, @output)
       else
         @output.puts "Error: Your canvas size is out of bounds"
@@ -184,7 +183,7 @@ module Picasso
           end
         end
       else
-        @output.puts "Error: The pixel you tried to fill is out of bounds of the canvas"
+        
       end 
     end
   end
@@ -228,6 +227,7 @@ module Picasso
       if y >= 0 && y <= @rows && x >= 0 && x <= @cols
         true
       else
+        @output.puts "Error: The pixel you tried to fill is out of bounds of the canvas"
         false
       end
     end
