@@ -63,6 +63,10 @@ module Picasso
           self.bucket_fill(y, x, colour)
         end
         
+      when "X"
+        @output.puts "Goodbye!"
+        exit
+        
       else
         @output.puts "Error: The command you entered is not valid"
       end
