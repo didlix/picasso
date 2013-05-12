@@ -1,4 +1,4 @@
- class App
+ class Picasso::App
     def initialize(output)
       @output = output
     end
