@@ -19,7 +19,9 @@
     end
 
     def []=(y, x, value)
-      @data[y][x] = value
+      if in_bounds?(y, x)
+        @data[y][x] = value
+      end
     end
     
     def get_canvas
