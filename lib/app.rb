@@ -106,8 +106,8 @@
       @target_colour = @canvas[y,x]
 
       # Add first co-ordinate to the queue
-      @queue = Array.new(1) { "#{y},#{x}" }
-      @buffer = Array.new
+      @queue = ["#{y},#{x}"]
+      @buffer = []
 
       while @queue.count > 0 do
         yx = @queue.last
@@ -128,7 +128,7 @@
             # add this place to our buffer so we don't go there again
             @buffer << yx
 
-            possible_neighbours = Array.new
+            possible_neighbours = []
 
             # Don't try to go out of bounds of the canvas
             if x-1 >= 0
