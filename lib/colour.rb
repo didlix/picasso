@@ -1,4 +1,4 @@
-class colour
+class Colour
 
   def initalize(colour)
     if colour.length == 1 && colour.match(/[A-Z]+/)
