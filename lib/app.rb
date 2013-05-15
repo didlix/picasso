@@ -36,30 +36,19 @@
 
         when "L"
           x, y, colour = parse_params(command_parts, :int, :int, :colour)
-          if is_valid_colour?(colour)
-            fill_pixel(y, x, colour)
-          end
+          fill_pixel(y, x, Colour.new(colour))
         
         when "H"
-          x1, y, x2, colour = parse_params(command_parts, :int, :int, :int, :colour)
-          
-          if is_valid_colour?(colour)
-            draw_horizontal_line(x1, x2, y, colour)
-          end
+          x1, y, x2, colour = parse_params(command_parts, :int, :int, :int, :colour)    
+          draw_horizontal_line(x1, x2, y, Colour.new(colour))
 
         when "V"          
           y1, x, y2, colour = parse_params(command_parts, :int, :int, :int, :colour)
-
-          if is_valid_colour?(colour)
-            draw_vertical_line(y1, y2, x, colour)
-          end
+          draw_vertical_line(y1, y2, x, Colour.new(colour))
           
         when "F"
           x, y, colour = parse_params(command_parts, :int, :int, :colour)
-
-          if is_valid_colour?(colour)
-            bucket_fill(y, x, colour)
-          end
+          bucket_fill(y, x, Colour.new(colour))
           
         when "X"
           @output.puts "Goodbye!"
@@ -68,6 +57,8 @@
         else
           @output.puts "Error: The command you entered is not valid"
       end
+      rescue Picasso::InvalidColourException => ex
+        @output.puts ex.message
     end
     
     def create_canvas(rows, cols)
@@ -96,16 +87,6 @@
       y = y
       for x in x1..x2
         fill_pixel(y, x, colour)
-      end
-    end
-
-    # Check if a colour is valid, if it is valid, return the colour otherwise puts an error and return false
-    def is_valid_colour?(colour)
-      if colour.length == 1 && colour.match(/[A-Z]+/)
-        colour
-      else
-        @output.puts "Error: That is not a valid colour, valid colours are A-Z"
-        false
       end
     end
 
