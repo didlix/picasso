@@ -14,14 +14,9 @@
       case command_parts[0]
 
       when "I"
-        rows = command_parts[2].to_i
+		rows = command_parts[2].to_i
         cols = command_parts[1].to_i
-
-        if rows >= 1 && rows <= 250 && cols >= 1 && cols <= 250
-          self.create_canvas(rows, cols)
-        else
-          @output.puts "Error: Your canvas sizes must be between 1 and 250"
-        end
+        create_canvas(rows, cols)
 
       when "S"
         self.render_canvas
@@ -73,6 +68,7 @@
     end
     
     def create_canvas(rows, cols)
+       
       if self.is_valid_size?(rows) && self.is_valid_size?(cols)
         @canvas = Canvas.new(rows, cols, @output)
       else
