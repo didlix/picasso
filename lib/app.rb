@@ -36,7 +36,7 @@
 
         when "L"
           x, y, colour = parse_params(command_parts, :int, :int, :colour)
-          if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
+          if is_valid_colour?(colour)
             fill_pixel(y, x, colour)
           end
         
@@ -62,7 +62,7 @@
         when "F"
           x, y, colour = parse_params(command_parts, :int, :int, :colour)
 
-          if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
+          if is_valid_colour?(colour)
             bucket_fill(y, x, colour)
           end
           
@@ -121,71 +121,66 @@
     end
     
     def fill_pixel(y, x, colour)
-      if @canvas.in_bounds?(y,x)
         @canvas[y,x] = colour
-      end
     end
     
     def bucket_fill(y, x, replacement_colour)
-    
-      if @canvas.in_bounds?(y, x)
 
-        @target_colour = @canvas[y,x]
+      @target_colour = @canvas[y,x]
 
-        # Add first co-ordinate to the queue
-        @queue = Array.new(1) { "#{y},#{x}" }
-        @buffer = Array.new
-              
-        while @queue.count > 0 do
-          yx = @queue.last
-          split_yx = yx.split ','
-          y = split_yx[0].to_i
-          x = split_yx[1].to_i
-          
-          # remove element we are processing from the queue
-          @queue.delete(yx)
-          
-          # co-ordinates are not in buffer and are within the canvas range
-          if @buffer.include?(yx) == false && y <= @canvas.rows && x <= @canvas.cols 
+      # Add first co-ordinate to the queue
+      @queue = Array.new(1) { "#{y},#{x}" }
+      @buffer = Array.new
             
-            # if target pixel is the target colour
-            if @canvas[y,x] == @target_colour      
-              fill_pixel(y, x, replacement_colour)
+      while @queue.count > 0 do
+        yx = @queue.last
+        split_yx = yx.split ','
+        y = split_yx[0].to_i
+        x = split_yx[1].to_i
         
-              # add this place to our buffer so we don't go there again
-              @buffer << yx
-              
-              possible_neighbours = Array.new
-              
-              # Don't try to go out of bounds of the canvas
-              if x-1 >= 0
-                possible_neighbours << "#{y},#{x-1}"
-              end
+        # remove element we are processing from the queue
+        @queue.delete(yx)
+        
+        # co-ordinates are not in buffer and are within the canvas range
+        if @buffer.include?(yx) == false && y <= @canvas.rows && x <= @canvas.cols 
+          
+          # if target pixel is the target colour
+          if @canvas[y,x] == @target_colour      
+            fill_pixel(y, x, replacement_colour)
+      
+            # add this place to our buffer so we don't go there again
+            @buffer << yx
+            
+            possible_neighbours = Array.new
+            
+            # Don't try to go out of bounds of the canvas
+            if x-1 >= 0
+              possible_neighbours << "#{y},#{x-1}"
+            end
 
-              if x+1 <= @canvas.cols
-                possible_neighbours << "#{y},#{x+1}"
-              end
+            if x+1 <= @canvas.cols
+              possible_neighbours << "#{y},#{x+1}"
+            end
 
-              if y-1 >= 0
-                possible_neighbours << "#{y-1},#{x}"
-              end
+            if y-1 >= 0
+              possible_neighbours << "#{y-1},#{x}"
+            end
 
-              if y+1 <= @canvas.rows
-                possible_neighbours << "#{y+1},#{x}"
-              end
-              
-              # neighbours that may or may not be in the buffer
-              possible_neighbours.each do |possible_neighbour|   
+            if y+1 <= @canvas.rows
+              possible_neighbours << "#{y+1},#{x}"
+            end
+            
+            # neighbours that may or may not be in the buffer
+            possible_neighbours.each do |possible_neighbour|   
 
-                # add places we have never been before to the queue
-                if @buffer.include?(possible_neighbour) == false
-                  @queue << possible_neighbour
-                end
+              # add places we have never been before to the queue
+              if @buffer.include?(possible_neighbour) == false
+                @queue << possible_neighbour
               end
             end
-          else
-            @buffer << yx
           end
+        else
+          @buffer << yx
         end
       else
         
