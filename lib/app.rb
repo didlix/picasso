@@ -8,63 +8,71 @@
       @output.puts 'Enter command:'
     end
     
+    def parse_params(object, *args)
+      arr = []
+      args.each do |type|
+        param = object.shift
+        case type
+          when :int  then arr << param.to_i - 1
+          when :canvas_size  then arr << param.to_i
+          when :colour then arr << param
+        end
+      end
+      return *arr
+    end
+
+
+
     def command(command)
       command_parts = command.split
-      
-      case command_parts[0]
 
-      when "I"
-		rows = command_parts[2].to_i
-        cols = command_parts[1].to_i
-        create_canvas(rows, cols)
+      case command_parts.shift
+        when "I"
+          rows, cols = parse_params(command_parts, :canvas_size, :canvas_size)
+          create_canvas(rows, cols)
 
-      when "S"
-        render_canvas
+        when "S"
+          render_canvas
 
-      when "L"
-        x = command_parts[1].to_i-1
-        y = command_parts[2].to_i-1
-        colour = command_parts[3]
-        if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
-          fill_pixel(y, x, colour)
-        end
-      
-      when "H"
-        x1 = command_parts[1].to_i-1
-        x2 = command_parts[2].to_i-1        
-        y = command_parts[3].to_i-1
-        colour = command_parts[4]
+        when "L"
+          x, y, colour = parse_params(command_parts, :int, :int, :colour)
+          if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
+            fill_pixel(y, x, colour)
+          end
         
-        if is_valid_colour?(colour)
-          draw_horizontal_line(x1, x2, y, colour)
-        end
+        when "H"
+          x1, y, x2, colour = parse_params(command_parts, :int, :int, :int, :colour)
+          
+          if is_valid_colour?(colour)
+            draw_horizontal_line(x1, x2, y, colour)
+          end
 
-      when "V"
-        y1 = command_parts[2].to_i-1
-        y2 = command_parts[3].to_i-1        
-        x = command_parts[1].to_i-1
-        colour = command_parts[4]        
-        
-        if is_valid_colour?(colour)
-          draw_vertical_line(y1, y2, x, colour)
-        end
-        
-      when "F"
-        x = command_parts[1].to_i-1
-        y = command_parts[2].to_i-1
-        colour = command_parts[3]
-        if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
-          bucket_fill(y, x, colour)
-        end
-        
-      when "X"
-        @output.puts "Goodbye!"
-        exit
-        
-      else
-        @output.puts "Error: The command you entered is not valid"
+        when "V"
+          y1 = command_parts[1].to_i-1
+          y2 = command_parts[2].to_i-1        
+          x = command_parts[0].to_i-1
+          colour = command_parts[3]        
+          
+          y1, x, y2, colour = parse_params(command_parts, :int, :int, :int, :colour)
+
+          if is_valid_colour?(colour)
+            draw_vertical_line(y1, y2, x, colour)
+          end
+          
+        when "F"
+          x, y, colour = parse_params(command_parts, :int, :int, :colour)
+
+          if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
+            bucket_fill(y, x, colour)
+          end
+          
+        when "X"
+          @output.puts "Goodbye!"
+          exit
+          
+        else
+          @output.puts "Error: The command you entered is not valid"
       end
-
     end
     
     def create_canvas(rows, cols)
