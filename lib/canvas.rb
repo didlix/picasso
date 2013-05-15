@@ -1,7 +1,7 @@
 # Based on a 2D Array
   class Canvas
 
-    attr_reader :rows. :cols
+    attr_reader :rows, :cols
 
     def initialize(rows, cols, output)
       # create 2D array setting each element to 'O'
