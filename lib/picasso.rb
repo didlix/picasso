@@ -5,5 +5,6 @@ module Picasso
   require 'colour'
 
   class InvalidColourException < RuntimeError; end
+  class InvalidCanvasLocationException < RuntimeError; end
 
 end

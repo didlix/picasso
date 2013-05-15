@@ -58,6 +58,8 @@
       end
       rescue Picasso::InvalidColourException => ex
         @output.puts ex.message
+      rescue Picasso::InvalidCanvasLocationException => ex
+        @output.puts ex.message
     end
 
     def create_canvas(rows, cols)
