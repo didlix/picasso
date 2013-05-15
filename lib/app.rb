@@ -47,12 +47,7 @@
             draw_horizontal_line(x1, x2, y, colour)
           end
 
-        when "V"
-          y1 = command_parts[1].to_i-1
-          y2 = command_parts[2].to_i-1        
-          x = command_parts[0].to_i-1
-          colour = command_parts[3]        
-          
+        when "V"          
           y1, x, y2, colour = parse_params(command_parts, :int, :int, :int, :colour)
 
           if is_valid_colour?(colour)
