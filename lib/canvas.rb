@@ -3,7 +3,7 @@ class Picasso::App::Canvas
 
   attr_reader :rows, :cols
 
-  def initialize(rows, cols, output)
+  def initialize(rows, cols)
 
     if is_valid_size?(rows) && is_valid_size?(cols)
       # create 2D array setting each element to 'O'
@@ -12,8 +12,6 @@ class Picasso::App::Canvas
       # Set number of rows and cols (remembering array starts at 0)
       @rows = rows-1
       @cols = cols-1
-
-      @output = output
 
     else
       raise Picasso::InvalidCanvasSizeException, "Can't have '#{rows}, #{cols}' as a canvas size."

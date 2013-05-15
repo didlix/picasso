@@ -65,7 +65,7 @@
     end
 
     def create_canvas(rows, cols)
-      @canvas = Canvas.new(rows, cols, @output)
+      @canvas = Canvas.new(rows, cols)
     end
 
     def render_canvas
