@@ -1,6 +1,6 @@
 class Colour
 
-  def initalize(colour)
+  def initialize(colour)
     if colour.length == 1 && colour.match(/[A-Z]+/)
       @colour = colour
     else
