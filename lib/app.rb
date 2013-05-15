@@ -19,14 +19,14 @@
         create_canvas(rows, cols)
 
       when "S"
-        self.render_canvas
+        render_canvas
 
       when "L"
         x = command_parts[1].to_i-1
         y = command_parts[2].to_i-1
         colour = command_parts[3]
-        if self.is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
-          self.fill_pixel(y, x, colour)
+        if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
+          fill_pixel(y, x, colour)
         end
       
       when "H"
@@ -35,8 +35,8 @@
         y = command_parts[3].to_i-1
         colour = command_parts[4]
         
-        if self.is_valid_colour?(colour)
-          self.draw_horizontal_line(x1, x2, y, colour)
+        if is_valid_colour?(colour)
+          draw_horizontal_line(x1, x2, y, colour)
         end
 
       when "V"
@@ -45,16 +45,16 @@
         x = command_parts[1].to_i-1
         colour = command_parts[4]        
         
-        if self.is_valid_colour?(colour)
-          self.draw_vertical_line(y1, y2, x, colour)
+        if is_valid_colour?(colour)
+          draw_vertical_line(y1, y2, x, colour)
         end
         
       when "F"
         x = command_parts[1].to_i-1
         y = command_parts[2].to_i-1
         colour = command_parts[3]
-        if self.is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
-          self.bucket_fill(y, x, colour)
+        if is_valid_colour?(colour) && @canvas.in_bounds?(y, x)
+          bucket_fill(y, x, colour)
         end
         
       when "X"
@@ -69,7 +69,7 @@
     
     def create_canvas(rows, cols)
        
-      if self.is_valid_size?(rows) && self.is_valid_size?(cols)
+      if is_valid_size?(rows) && is_valid_size?(cols)
         @canvas = Canvas.new(rows, cols, @output)
       else
         @output.puts "Error: Your canvas size is out of bounds"
@@ -92,7 +92,7 @@
       x2 = x2
       y = y
       for x in x1..x2
-        self.fill_pixel(y, x, colour)
+        fill_pixel(y, x, colour)
       end
     end
 
@@ -108,7 +108,7 @@
 
     def draw_vertical_line(y1, y2, x, colour)
       for y in y1..y2
-        self.fill_pixel(y, x, colour)
+        fill_pixel(y, x, colour)
       end
     end
     
@@ -142,7 +142,7 @@
             
             # if target pixel is the target colour
             if @canvas[y,x] == @target_colour      
-              self.fill_pixel(y, x, replacement_colour)
+              fill_pixel(y, x, replacement_colour)
         
               # add this place to our buffer so we don't go there again
               @buffer << yx
