@@ -33,16 +33,15 @@ class Picasso::App::Canvas
     @data
   end
 
-
   # check if a supplied value is the right size
   def is_valid_size?(length)
     length <= 250 && length >= 1
   end
 
-
   def in_bounds?(y, x)
     if y >= 0 && y <= @rows && x >= 0 && x <= @cols
       true
+    else
       # +1 all numbers for user as internal pointers differ from user's experience
       raise Picasso::InvalidCanvasLocationException, "Can't have '#{x+1}, #{y+1}' as a pixel in canvas sized '#{@cols+1}, #{@rows+1}'."
     end
