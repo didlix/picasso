@@ -6,5 +6,6 @@ module Picasso
 
   class InvalidColourException < RuntimeError; end
   class InvalidCanvasLocationException < RuntimeError; end
+  class InvalidCanvasSizeException < RuntimeError; end
 
 end

@@ -64,10 +64,10 @@
 
     def create_canvas(rows, cols)
 
-      if is_valid_size?(rows) && is_valid_size?(cols)
+      begin
         @canvas = Canvas.new(rows, cols, @output)
-      else
-        @output.puts "Error: Your canvas size is out of bounds"
+      rescue Picasso::InvalidCanvasSizeException => ex
+        @output.puts ex.message
       end
     end
 
@@ -75,11 +75,6 @@
       @canvas.get_canvas.each do |row|
         @output.puts row.join('')
       end
-    end
-
-    # check if a supplied value is the right size
-    def is_valid_size?(length)
-      length <= 250 && length >= 1
     end
 
     def draw_horizontal_line(x1, x2, y, colour)
