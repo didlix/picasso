@@ -1,5 +1,8 @@
 # Based on a 2D Array
   class Canvas
+
+    attr_reader :rows. :cols
+
     def initialize(rows, cols, output)
       # create 2D array setting each element to 'O'
       @data = Array.new(rows) { Array.new(cols) { 'O' } }
@@ -9,16 +12,6 @@
       @cols = cols-1
 
       @output = output
-    end
-
-    # number of cols
-    def cols
-      @cols
-    end
-    
-    # number or rows
-    def rows
-      @rows
     end
 
     def [](y, x)
