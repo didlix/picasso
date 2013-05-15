@@ -60,15 +60,12 @@
         @output.puts ex.message
       rescue Picasso::InvalidCanvasLocationException => ex
         @output.puts ex.message
+      rescue Picasso::InvalidCanvasSizeException => ex
+        @output.puts ex.message
     end
 
     def create_canvas(rows, cols)
-
-      begin
-        @canvas = Canvas.new(rows, cols, @output)
-      rescue Picasso::InvalidCanvasSizeException => ex
-        @output.puts ex.message
-      end
+      @canvas = Canvas.new(rows, cols, @output)
     end
 
     def render_canvas
