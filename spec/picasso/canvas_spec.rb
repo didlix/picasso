@@ -15,6 +15,9 @@ module Picasso
         it "checks that the canvas is not totally bonkers" do
           expect { App::Canvas.new(-1, -1) }.to raise_error(InvalidCanvasSizeException)
         end
+        it "should create a canvas that is within the correct range" do
+
+        end
       end
       describe "#get_canvas" do
         it "returns a canvas when Canvas has been initialised" do
@@ -39,10 +42,21 @@ module Picasso
         end
       end
       describe "#[](y, x)" do
-        it "Should set the defined point in the array to the provided input" do
+        it "Should set the defined point in the array to the Colour object input" do
           canvas = Canvas.new(22,22)
-          canvas[10,20] = Colour.new("Y")
-          canvas[10,20].should eq("Y")
+          colour = Colour.new("Y")
+          canvas[10,20] = colour
+          canvas[10,20].should eq(colour)
+        end
+        it "raises an exception if a non Colour object is supplied" do
+          canvas = Canvas.new(22,22)
+          colour = "Y"
+          expect { canvas[10,20] = colour }.to raise_error(Picasso::InvalidCanvasObjectException)
+        end
+        it "should raise an exception if the x,y coordinates exist outside of the canvas array" do
+          canvas = Canvas.new(22,22)
+          colour = "Y"
+          expect { canvas[22,22] = colour }.to raise_error(Picasso::InvalidCanvasLocationException)
         end
       end
     end
