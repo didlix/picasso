@@ -7,10 +7,6 @@ class Picasso::App::Colour
     end
   end
 
-  def inspect
-    to_s
-  end
-
   def to_s
     @colour
   end
